@@ -27,11 +27,6 @@ int print_world(int world_state[ROWS][COLS]) {
     return 0;
 }
 
-int count_neighbours(int world_state[ROWS][COLS], int position[2]) {
-    // 0-row, 1-column
-
-}
-
 int is_neighbor(int world_state[ROWS][COLS], int row, int column) {
     /*if position exists (no coordinate is smaller then 0) then we want to return the value,
      if out of bounds - it is 0.
@@ -62,8 +57,9 @@ int neighbour_count(int world_state[ROWS][COLS], int row, int column) {
 
 }
 
-int world_neighbor_counts(int world_state[ROWS][COLS]) {
-    int n_counts[ROWS][COLS] = {0};
+int (*world_neighbor_counts(int world_state[ROWS][COLS]))[COLS] {
+
+    int (*n_counts)[COLS] = malloc(ROWS * sizeof(*n_counts));
     
     for (int i = 0; i < ROWS; i++)
     {
@@ -78,8 +74,10 @@ int world_neighbor_counts(int world_state[ROWS][COLS]) {
 
 int main() {
     print_world(world);
+    int (*counts)[COLS] = world_neighbor_counts(world);
     printf("\n\n");
-    print_world(world_neighbor_counts(world));
+    print_world(counts);
 
+    free(counts);
     return 0;
 }
