@@ -72,12 +72,43 @@ int (*world_neighbor_counts(int world_state[ROWS][COLS]))[COLS] {
     return n_counts;
 }
 
+int dead_or_alive(int neighbor_count) {
+     switch (neighbor_count) {
+        case 0:
+        case 1:
+            return 0; // underpopulation
+        case 2:
+            return 1; // live on
+        case 3:
+            return 1; // live on + reproduce (in case of dead cell)
+        default:
+            return 0; // overpopulation
+    }
+}
+
+int (*get_next_gen(int world_neighbor_count[ROWS][COLS]))[COLS] {
+    int (*next)[COLS] = malloc(ROWS * sizeof(*next));
+    for (int i = 0; i < ROWS; i++)
+    {
+        for (int j = 0; j < COLS; j++)
+        {
+            next[i][j] = dead_or_alive(world_neighbor_count[i][j]);
+        }
+    }
+    return next;
+}
+
 int main() {
     print_world(world);
     int (*counts)[COLS] = world_neighbor_counts(world);
     printf("\n\n");
     print_world(counts);
 
+    int (*next_gen)[COLS] = get_next_gen(counts);
+    printf("\n\n");
+    print_world(next_gen);
+
     free(counts);
+    free(next_gen);
     return 0;
 }
