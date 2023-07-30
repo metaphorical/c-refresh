@@ -4,6 +4,8 @@
 #define ROWS 5
 #define COLS 5
 
+#include "lib/files.h"
+
 int world[ROWS][COLS] = {
     {0,0,1,0,1},
     {0,0,1,0,1},
@@ -107,6 +109,7 @@ int main() {
     int (*next_gen)[COLS] = get_next_gen(counts);
     printf("\n\n");
     print_world(next_gen);
+    save_world_to_disc("worlds/next_gen.txt", next_gen);
 
     free(counts);
     free(next_gen);
