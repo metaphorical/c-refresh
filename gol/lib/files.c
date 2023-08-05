@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include <files.h>
+#include "lib/constants.h"
+#include <lib/files.h>
 
 void save_world_to_disc(const char* filename, int world[ROWS][COLS]) {
     FILE* fp = fopen(filename, "w");

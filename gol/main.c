@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-#define ROWS 5
-#define COLS 5
-
+#include "lib/constants.h"
 #include "lib/files.h"
 
 int world[ROWS][COLS] = {
